@@ -1,0 +1,28 @@
+body {
+  background-color: aqua;
+}
+
+.form {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form__results {
+  display: flex;
+  flex-direction: column;
+}
+
+.form__results-first {
+  width: 300px;
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
+
+.form__results-second {
+  width: 300px;
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
