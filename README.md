@@ -1,54 +1,27 @@
-# React + TypeScript + Vite
+<div id="header" align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExejR6N2V1N3VoOHlwN3VmOWZqZm5waWdwbTM3d20wNzNpNnppd2ViYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/ymwg2hvAKuuuiDN1x3/giphy.gif" width="45"> Greetings, friend <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExejR6N2V1N3VoOHlwN3VmOWZqZm5waWdwbTM3d20wNzNpNnppd2ViYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/ymwg2hvAKuuuiDN1x3/giphy.gif" width="45">
 
-Currently, two official plugins are available:
+  <img src="/public/fatals-gif.gif" width="150" alt="Fatals gif"/>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  <div id="badges">
+    <a href="https://t.me/euronymous_ts">
+      <img src="https://img.shields.io/badge/Telegram-blue?logo=telegram&logoColor=white" alt="Telegram Badge"/>
+    </a>
+    <a href="https://www.instagram.com/fatal_1703?igsh=cGl2dHhoYmxteGJz&utm_source=qr">
+      <img src="https://img.shields.io/badge/Instagram-red?logo=instagram&logoColor=white" alt="Instagram Badge"/>
+    </a>
+    <a href="https://vk.com/fatal999">
+      <img src="https://img.shields.io/badge/VKontakte-blue?logo=vk&logoColor=white" alt="VK Badge"/>
+    </a>
+  </div>
 
-## Expanding the ESLint configuration
+  <img src="https://komarev.com/ghpvc/?username=your-github-fatal999&style=flat-square&color=blue" alt="Statistics"/>
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## <img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="45"> This is my test project, just biology :)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExeWkwbHVxbGZuemxxbnh2azl5MnI1MjNlejRydXh4ZnVjNXkxNXU1YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/Nn97Knvcol0rENwFk5/giphy.gif" width="35" height="35"> Stack: HTML, SCSS, TS, React, Vite
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## GitHub Pages: "Coming soon"
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+</div>
