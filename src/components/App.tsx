@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 
 function App() {
   const firstInput = useRef(null)
@@ -46,7 +46,7 @@ function App() {
 
     const firstValueArr = firstValue.split('')
     firstValueArr.forEach(el => {
-      const firstValueArrEl = document.createElement('li')
+      const firstValueArrEl = document.createElement('span')
 
       switch (true) {
         case yellowLetters.includes(el):
@@ -78,57 +78,90 @@ function App() {
       }
 
       firstValueArrEl.textContent = el
+
       resultListFirst.current.appendChild(firstValueArrEl)
     })
 
     const secondValueArr = secondValue.split('')
-
     const testSecondArr = []
 
     for (let i = 0; i < firstValueArr.length; i++) {
       if (firstValueArr[i] !== secondValueArr[i]) {
-        testSecondArr.push(secondValueArr[i])
+        testSecondArr.push(i)
       }
     }
 
-    console.log(testSecondArr)
+    secondValueArr.forEach((el, index) => {
+      const secondValueArrEl = document.createElement('span')
 
-    secondValueArr.forEach(el => {
-      const secondValueArrEl = document.createElement('li')
+      if (!testSecondArr.includes(index)) {
+        secondValueArrEl.style.backgroundColor = 'transperrent'
+      } else {
+        switch (true) {
+          case yellowLetters.includes(el):
+            secondValueArrEl.style.backgroundColor = '#FFEA00'
+            break
 
-      switch (true) {
-        case yellowLetters.includes(el):
-          secondValueArrEl.style.backgroundColor = '#FFEA00'
-          break
+          case greenLetters.includes(el):
+            secondValueArrEl.style.backgroundColor = '#67E4A6'
+            break
 
-        case greenLetters.includes(el):
-          secondValueArrEl.style.backgroundColor = '#67E4A6'
-          break
+          case greyLetters.includes(el):
+            secondValueArrEl.style.backgroundColor = '#C4C4C4'
+            break
 
-        case greyLetters.includes(el):
-          secondValueArrEl.style.backgroundColor = '#C4C4C4'
-          break
+          case pinkLetters.includes(el):
+            secondValueArrEl.style.backgroundColor = '#67E4A6'
+            break
 
-        case pinkLetters.includes(el):
-          secondValueArrEl.style.backgroundColor = '#67E4A6'
-          break
+          case violetLetters.includes(el):
+            secondValueArrEl.style.backgroundColor = '#BB99FF'
+            break
 
-        case violetLetters.includes(el):
-          secondValueArrEl.style.backgroundColor = '#BB99FF'
-          break
+          case blueLetters.includes(el):
+            secondValueArrEl.style.backgroundColor = '#80BFFF'
+            break
 
-        case blueLetters.includes(el):
-          secondValueArrEl.style.backgroundColor = '#80BFFF'
-          break
-
-        default:
-          secondValueArrEl.style.backgroundColor = 'transperrent'
+          default:
+            secondValueArrEl.style.backgroundColor = 'transperrent'
+        }
       }
 
       secondValueArrEl.textContent = el
       resultListSecond.current.appendChild(secondValueArrEl)
     })
   }
+
+  useEffect(() => {
+    let timer
+
+    const input = firstInput.current
+    if (!input) return
+
+    const handleMouseDown = () => {
+      timer = setTimeout(() => {
+        console.log('long')
+      }, 500)
+    }
+
+    const handleMouseUp = () => {
+      clearTimeout(timer)
+    }
+
+    const handleMouseOut = () => {
+      clearTimeout(timer)
+    }
+
+    input.addEventListener('mousedown', handleMouseDown)
+    input.addEventListener('mouseup', handleMouseUp)
+    input.addEventListener('mouseout', handleMouseOut)
+
+    return () => {
+      input.removeEventListener('mousedown', handleMouseDown)
+      input.removeEventListener('mouseup', handleMouseUp)
+      input.removeEventListener('mouseout', handleMouseOut)
+    }
+  }, [])
 
   return (
     <>
@@ -157,8 +190,8 @@ function App() {
         </button>
         <p>Result:</p>
         <div className="form__results" ref={resultContainer}>
-          <ul className="form__results-first" ref={resultListFirst}></ul>
-          <ul className="form__results-second" ref={resultListSecond}></ul>
+          <div className="form__results-first" ref={resultListFirst}></div>
+          <div className="form__results-second" ref={resultListSecond}></div>
         </div>
       </form>
     </>
