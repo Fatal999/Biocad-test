@@ -1,16 +1,14 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useState } from 'react'
+import PreventSubmit from '../../functions/utils.tsx'
+import CopyMessage from '../message/message.tsx'
 
-function App() {
+export default function HomeWindow() {
   const firstInput = useRef(null)
   const secondInput = useRef(null)
   const submitButton = useRef(null)
   const resultContainer = useRef(null)
   const resultListFirst = useRef(null)
   const resultListSecond = useRef(null)
-
-  function preventSubmit(el) {
-    el.preventDefault()
-  }
 
   function checkValidation() {
     const lettersTest = /^[ARNDCEQGHILKMFPSTWYV-]+$/
@@ -128,74 +126,90 @@ function App() {
       }
 
       secondValueArrEl.textContent = el
+
       resultListSecond.current.appendChild(secondValueArrEl)
     })
   }
 
-  useEffect(() => {
-    let timer
+  const [copyPopup, setCopyPopup] = useState(false)
+  let timer
+  let longPress = false
 
-    const input = firstInput.current
-    if (!input) return
+  function showCopyMessage() {
+    setCopyPopup(true)
+  }
 
-    const handleMouseDown = () => {
-      timer = setTimeout(() => {
-        console.log('long')
-      }, 500)
+  function hideCopyMessage() {
+    setCopyPopup(false)
+  }
+
+  function copyText() {
+    longPress = false
+    timer = setTimeout(() => {
+      longPress = true
+    }, 500)
+  }
+
+  function deleteCopyText() {
+    clearTimeout(timer)
+
+    if (longPress) {
+      document.execCommand('copy')
+      showCopyMessage()
+      setTimeout(() => {
+        hideCopyMessage()
+      }, 1000)
     }
-
-    const handleMouseUp = () => {
-      clearTimeout(timer)
-    }
-
-    const handleMouseOut = () => {
-      clearTimeout(timer)
-    }
-
-    input.addEventListener('mousedown', handleMouseDown)
-    input.addEventListener('mouseup', handleMouseUp)
-    input.addEventListener('mouseout', handleMouseOut)
-
-    return () => {
-      input.removeEventListener('mousedown', handleMouseDown)
-      input.removeEventListener('mouseup', handleMouseUp)
-      input.removeEventListener('mouseout', handleMouseOut)
-    }
-  }, [])
+  }
 
   return (
     <>
-      <form className="form" onSubmit={preventSubmit}>
-        <input
-          className="form__input-first"
-          type="text"
-          required
-          ref={firstInput}
-          onChange={checkValidation}
-        ></input>
-        <input
-          className="form__input-second"
-          type="text"
-          required
-          ref={secondInput}
-          onChange={checkValidation}
-        ></input>
-        <button
-          className="form__input-submit"
-          ref={submitButton}
-          onClick={submitResults}
-          type="submit"
-        >
-          Submit
-        </button>
-        <p>Result:</p>
+      <form className="form" onSubmit={PreventSubmit}>
+        <div className="form__wrapper">
+          {copyPopup && <CopyMessage></CopyMessage>}
+          <input
+            className="form__input-first"
+            type="text"
+            required
+            ref={firstInput}
+            onChange={checkValidation}
+            onMouseDown={copyText}
+            onMouseUp={deleteCopyText}
+          ></input>
+          <input
+            className="form__input-second"
+            type="text"
+            required
+            ref={secondInput}
+            onChange={checkValidation}
+            onMouseDown={copyText}
+            onMouseUp={deleteCopyText}
+          ></input>
+          <button
+            className="form__input-submit"
+            ref={submitButton}
+            onClick={submitResults}
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
         <div className="form__results" ref={resultContainer}>
-          <div className="form__results-first" ref={resultListFirst}></div>
-          <div className="form__results-second" ref={resultListSecond}></div>
+          <p>Result:</p>
+          <div
+            className="form__results-first"
+            ref={resultListFirst}
+            onMouseDown={copyText}
+            onMouseUp={deleteCopyText}
+          ></div>
+          <div
+            className="form__results-second"
+            ref={resultListSecond}
+            onMouseDown={copyText}
+            onMouseUp={deleteCopyText}
+          ></div>
         </div>
       </form>
     </>
   )
 }
-
-export default App
