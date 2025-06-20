@@ -1,17 +1,21 @@
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import PreventSubmit from '../../functions/utils.tsx'
 import CopyMessage from '../message/message.tsx'
 
 export default function HomeWindow() {
-  const firstInput = useRef(null)
-  const secondInput = useRef(null)
-  const submitButton = useRef(null)
-  const resultContainer = useRef(null)
-  const resultListFirst = useRef(null)
-  const resultListSecond = useRef(null)
+  const firstInput = useRef<HTMLInputElement>(null)
+  const secondInput = useRef<HTMLInputElement>(null)
+  const submitButton = useRef<HTMLButtonElement>(null)
+  const resultContainer = useRef<HTMLDivElement>(null)
+  const resultListFirst = useRef<HTMLDivElement>(null)
+  const resultListSecond = useRef<HTMLDivElement>(null)
 
   function checkValidation() {
     const lettersTest = /^[ARNDCEQGHILKMFPSTWYV-]+$/
+
+    if (!firstInput.current || !secondInput.current || !submitButton.current)
+      return
+
     const firstValue = firstInput.current.value
     const secondValue = secondInput.current.value
 
@@ -34,6 +38,8 @@ export default function HomeWindow() {
     const violetLetters = ['K', 'R']
     const blueLetters = ['S', 'T', 'H', 'Q', 'N']
 
+    if (!firstInput.current || !secondInput.current) return
+
     const firstValue = firstInput.current.value
     const secondValue = secondInput.current.value
 
@@ -44,6 +50,8 @@ export default function HomeWindow() {
 
     const firstValueArr = firstValue.split('')
     firstValueArr.forEach(el => {
+      if (!resultListFirst.current) return
+
       const firstValueArrEl = document.createElement('span')
 
       switch (true) {
@@ -81,7 +89,7 @@ export default function HomeWindow() {
     })
 
     const secondValueArr = secondValue.split('')
-    const testSecondArr = []
+    const testSecondArr: number[] = []
 
     for (let i = 0; i < firstValueArr.length; i++) {
       if (firstValueArr[i] !== secondValueArr[i]) {
@@ -90,6 +98,8 @@ export default function HomeWindow() {
     }
 
     secondValueArr.forEach((el, index) => {
+      if (!resultListSecond.current) return
+
       const secondValueArrEl = document.createElement('span')
 
       if (!testSecondArr.includes(index)) {
@@ -132,7 +142,7 @@ export default function HomeWindow() {
   }
 
   const [copyPopup, setCopyPopup] = useState(false)
-  let timer
+  let timer: ReturnType<typeof setTimeout>
   let longPress = false
 
   function showCopyMessage() {
