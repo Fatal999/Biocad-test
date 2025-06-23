@@ -68,7 +68,7 @@ export default function HomeWindow() {
           break
 
         case pinkLetters.includes(el):
-          firstValueArrEl.style.backgroundColor = '#67E4A6'
+          firstValueArrEl.style.backgroundColor = '#FC9CAC'
           break
 
         case violetLetters.includes(el):
